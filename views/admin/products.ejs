@@ -14,8 +14,8 @@
                     <div class="col-lg-4 col-md-6 mb-4">
 
                         <a href="" class="waves-effect waves-light">
-                            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/13.jpg"
-                                class="img-fluid" alt="">
+                            <img style="width: 250px;height: 200px;" src="<%= product.imageUrl %> " class="img-fluid"
+                                alt="<%= product.title %> ">
                         </a>
 
                         <p class="mb-1">
@@ -25,13 +25,10 @@
                         </p>
 
                         <p class="mb-1">
-                            <small class="mr-1">
-                                <s>$599</s>
-                            </small>
-                            <strong>$299</strong>
+                            <strong>$<%= product.price %></strong>
                         </p>
 
-                        <span class="badge blue darken-1 mb-2">New</span>
+                        <p><%= product.description %> </p>
 
                         <div class="amber-text fa-xs mb-1">
                             <i class="fas fa-star"></i>
