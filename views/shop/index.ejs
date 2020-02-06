@@ -1,58 +1,72 @@
 <main>
+
+
     <div class="container">
-        <div class="container my-5 py-5">
+
+        <div class="container mt-5">
 
 
             <!--Section: Content-->
-            <section class="text-center">
+            <section class="dark-grey-text text-center">
+                <% if(prods.length > 0) { %>
+                <!-- Section heading -->
+                <h1 class="font-weight-bold mb-4 pb-2">Our Products</h1>
 
-
-                <!--Grid row-->
+                <!-- Grid row -->
                 <div class="row">
                     <% prods.forEach(product => { %>
-                    <!--Grid column-->
-                    <div class="col-lg-4 col-md-6 mb-4">
+                    <!-- Grid column -->
+                    <div class="col-lg-3 col-md-6 mb-4 align-items-stretch">
+                        <!-- Card -->
+                        <div class="card align-items-center">
+                            <!-- Card image -->
+                            <div class="view overlay">
+                                <img style="height: 200px;" src="<%= product.imageUrl %>" class="card-img-top"
+                                    alt="<%= product.title %>">
+                                <a>
+                                    <div class="mask rgba-white-slight"></div>
+                                </a>
+                            </div>
+                            <!-- Card image -->
+                            <!-- Card content -->
+                            <div class="card-body text-center">
+                                <!-- Category & Title -->
+                                <!-- <a href="" class="grey-text">
+                                    <h6>Shirt</h6>
+                                </a> -->
+                                <h3 class="mb-3">
+                                    <strong>
+                                        <p clss="dark-grey-text">"<%= product.title %>"
+                                        </p>
+                                    </strong>
+                                </h3>
 
-                        <a href="" class="waves-effect waves-light">
-                            <img style="width: 250px;height: 200px;" src="<%= product.imageUrl %> " class="img-fluid"
-                                alt="<%= product.title %> ">
-                        </a>
-
-                        <p class="mb-1">
-                            <a href="" class="font-weight-bold black-text">
-                                <%= product.title %>
-                            </a>
-                        </p>
-
-                        <p class="mb-1">
-                            <strong>$<%= product.price %></strong>
-                        </p>
-
-                        <p><%= product.description %> </p>
-
-                        <div class="amber-text fa-xs mb-1">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                                <h5 class="font-weight-bold blue-text mb-4">
+                                    <strong>$<%= product.price %></strong>
+                                </h5>
+                                <h5 class="mb-3">
+                                    <p class="dark-grey-text"><%= product.description.substring(0,30)+'.....' %></p>
+                                </h5>
+                                <button type="submit" class="btn btn-success">Add to Cart</button>
+                            </div>
+                            <!-- Card content -->
                         </div>
-
-                        <button type="button" class="btn btn-black btn-rounded btn-sm px-3">Add to Cart</button>
-
+                        <!-- Card -->
                     </div>
-                    <!--Grid column-->
-
+                    <!-- Grid column -->
                     <% }); %>
-
                 </div>
-                <!--Grid row-->
+                <!-- Grid row -->
+                <% }else{ %>
 
+                <h1 class="display-4 text-center my-5 text-danger">Nothing Here</h1>
 
+                <% } %>
             </section>
             <!--Section: Content-->
 
 
         </div>
+
     </div>
 </main>
