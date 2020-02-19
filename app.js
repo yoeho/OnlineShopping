@@ -19,6 +19,9 @@ app.set('view engine', 'ejs');
 const adminRoute = require('./routes/admin');
 const shopRoute = require('./routes/shop');
 
+//import from database
+const mongoConnect = require('./util/database').mongoConnect;
+
 // must be top of the use
 app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(express.static(path.join(__dirname, 'public')));
@@ -33,4 +36,6 @@ app.use((req, res, next) => {
             path: ''
         });
 });
-app.listen(777);
+mongoConnect(() => {
+    app.listen(3000);
+});
