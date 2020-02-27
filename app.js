@@ -15,6 +15,9 @@ const expressLayouts = require('express-ejs-layouts');
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
 
+//import from models
+const User = require('./models/user');
+
 //import from route module 
 const adminRoute = require('./routes/admin');
 const shopRoute = require('./routes/shop');
@@ -25,6 +28,17 @@ const mongoConnect = require('./util/database').mongoConnect;
 // must be top of the use
 app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(express.static(path.join(__dirname, 'public')));
+
+app.use((req, res, next) => {
+    User.findById("5e54e4801c9d44000045e42b")
+        .then(user => {
+            req.user = new User(user.name, user.email, user.cart, user._id);
+            next();
+        })
+        .catch(err => {
+            console.log(err);
+        })
+})
 
 app.use('/admin', adminRoute);
 app.use('/', shopRoute);

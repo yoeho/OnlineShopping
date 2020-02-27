@@ -1,6 +1,7 @@
 const mongodb = require('mongodb');
 const Product = require('../models/product');
 exports.getAddProduct = (req, res, next) => {
+    console.log(req.user);
     res.render('admin/product-form.ejs',
         {
             pageTitle: 'Add Product',
@@ -10,9 +11,13 @@ exports.getAddProduct = (req, res, next) => {
 };
 
 exports.postAddProduct = (req, res, next) => {
-    // const title = req.body.title;
-    // const product = new Product(title);
-    const product = new Product(req.body.title, req.body.imageUrl, req.body.price, req.body.description, null);
+    const title = req.body.title;
+    const imageUrl = req.body.imageUrl;
+    const price = req.body.price;
+    const description = req.body.description;
+    const userId = req.user._id;
+    const product = new Product(title, imageUrl, price, description, null, userId);
+    // const product = new Product(req.body.title, req.body.imageUrl, req.body.price, req.body.description, null, req.user._id);
     // products.push({ title: req.body.title });            //object
     product.save()
         .then(result => {
@@ -73,8 +78,9 @@ exports.postEditProduct = (req, res, next) => {
     const updatedImageUrl = req.body.imageUrl;
     const updatedPrice = req.body.price;
     const updatedDescription = req.body.description;
+    const updatedUserId = req.user._id;
 
-    const product = new Product(updatedTitle, updatedImageUrl, updatedPrice, updatedDescription, new mongodb.ObjectId(prodId));
+    const product = new Product(updatedTitle, updatedImageUrl, updatedPrice, updatedDescription, new mongodb.ObjectId(prodId), updatedUserId);
     product.save()
         .then(() => {
             console.log('Your updated is successfull');

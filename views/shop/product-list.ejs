@@ -47,10 +47,15 @@
                                 <h5 class="mb-3">
                                     <p class="dark-grey-text"><%= product.description.substring(0,30)+'.....' %></p>
                                 </h5>
-                                <a href="/products/<%= product._id %>"
-                                    class="btn btn-black btn-rounded btn-sm px-3">Details</a>
-                                <button type="button" class="btn btn-primary btn-rounded btn-sm px-3">Add to
-                                    Card</button>
+                                <div class="mb-2">
+                                    <a href="/products/<%= product._id %>"
+                                        class="btn btn-black btn-rounded btn-sm px-3">Details</a>
+                                    <form action="/cart" method="POST">
+                                        <button type="submit" class="btn btn-primary btn-rounded btn-sm px-3">Add To
+                                            Cart</button>
+                                        <input type="hidden" name="productId" value="<%= product._id %>">
+                                    </form>
+                                </div>
                             </div>
                             <!-- Card content -->
                         </div>

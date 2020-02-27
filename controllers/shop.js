@@ -40,25 +40,43 @@ exports.getProduct = (req, res, next) => {
         console.log(err);
     })
 }
-exports.getOrders = (req, res, next) => {
-    Product.fetchAll((cb) => {
-        res.render('shop/orders.ejs', {
-            pageTitle: 'Orders',
-            path: '/orders',
-            prods: cb
-
-        }); //static 
-
-    });
-}
 exports.getCart = (req, res, next) => {
-    Product.fetchAll((cb) => {
-        res.render('shop/cart.ejs', {
-            pageTitle: 'Cart',
-            path: '/cart',
-            prods: cb
+    req.user.getCart().
+        then(products => {
+            console.log(products);
+            res.render('shop/cart.ejs', {
+                pageTitle: 'Cart',
+                path: '/cart',
+                prods: products
+            });
+        })
+        .catch(err => {
+            console.log(err);
+        })
+}
+exports.postCart = (req, res, next) => {
+    const productId = req.body.productId;
+    // console.log(productId);
+    Product.findById(productId)
+        .then(product => {
+            return req.user.addToCart(product);
+        })
+        .then(result => {
+            console.log(result);
+            res.redirect('/cart');
 
-        }); //static 
+        })
+}
+exports.postDeleteCart = (req, res, next) => {
+    const prodId = req.body.productId;
+    console.log(prodId);
+    req.user.deleteCartItem(prodId);
+    res.redirect('/cart');
+}
+exports.getOrders = (req, res, next) => {
+    res.render('shop/orders.ejs', {
+        pageTitle: 'Orders',
+        path: '/orders'
 
-    });
+    }); //static 
 }
