@@ -49,8 +49,8 @@
                                 </h5>
                                 <div class="mb-2">
                                     <a href="/products/<%= product._id %>"
-                                        class="btn btn-black btn-rounded btn-sm px-3">Details</a>
-                                    <form action="/cart" method="POST">
+                                        class="btn btn-black btn-rounded btn-sm px-3 float-right">Details</a>
+                                    <form action="/cart" method="POST" class="float-left">
                                         <button type="submit" class="btn btn-primary btn-rounded btn-sm px-3">Add To
                                             Cart</button>
                                         <input type="hidden" name="productId" value="<%= product._id %>">

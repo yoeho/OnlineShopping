@@ -41,8 +41,8 @@ exports.getProduct = (req, res, next) => {
     })
 }
 exports.getCart = (req, res, next) => {
-    req.user.getCart().
-        then(products => {
+    req.user.getCart()
+        .then(products => {
             console.log(products);
             res.render('shop/cart.ejs', {
                 pageTitle: 'Cart',
@@ -63,7 +63,7 @@ exports.postCart = (req, res, next) => {
         })
         .then(result => {
             console.log(result);
-            res.redirect('/cart');
+            res.redirect('/');
 
         })
 }
@@ -73,10 +73,20 @@ exports.postDeleteCart = (req, res, next) => {
     req.user.deleteCartItem(prodId);
     res.redirect('/cart');
 }
-exports.getOrders = (req, res, next) => {
-    res.render('shop/orders.ejs', {
-        pageTitle: 'Orders',
-        path: '/orders'
+// exports.getOrders = (req, res, next) => {
+//     res.render('shop/orders.ejs', {
+//         pageTitle: 'Orders',
+//         path: '/orders'
 
-    }); //static 
+//     }); //static 
+// }
+exports.postOrders = (req, res, next) => {
+    req.user.addOrder()
+        .then(orders => {
+            console.log(orders);
+            res.redirect('/cart');
+        })
+        .catch(err => {
+            console.log(err);
+        })
 }

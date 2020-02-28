@@ -48,8 +48,8 @@
                                     <p class="dark-grey-text"><%= product.description.substring(0,30)+'.....' %></p>
                                 </h5>
                                 <a href="/admin/edit-product/<%= product._id %>?edit=true"
-                                    class="btn btn-success btn-rounded btn-sm px-3">Edit</a>
-                                <form action="/admin/delete-product" method="POST">
+                                    class="btn btn-success btn-rounded btn-sm px-3 float-right">Edit</a>
+                                <form action="/admin/delete-product" method="POST" class="float-left">
                                     <input type="hidden" name="productId" value="<%= product._id %>">
                                     <input type="submit" class="btn btn-danger btn-rounded btn-sm px-3" value="Delete">
                                 </form>
