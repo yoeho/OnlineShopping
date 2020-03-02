@@ -27,6 +27,7 @@ class User {
             const cartProductIndex = this.cart.items.findIndex(cp => {
                 return cp.productId.toString() === product._id.toString();//no quantities
             })
+            // console.log(this.cart.items[cartProductIndex])
             let quantity = 1;
             const updatedCartItems = [...this.cart.items];
             if (cartProductIndex >= 0) {
@@ -75,6 +76,17 @@ class User {
         })
         // console.log(updatedCartItems);
         return db.collection('users').updateOne({ _id: new mongodb.ObjectId(this._id) }, { $set: { cart: { items: updatedCartItems } } })
+    }
+
+    getOrder() {
+        const db = getDb();
+        return db.collection('orders').find({ 'user._id': new mongodb.ObjectId(this._id) }).toArray()
+            .then(orders => {
+                return orders;
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
     addOrder() {

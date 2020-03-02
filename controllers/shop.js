@@ -36,7 +36,7 @@ exports.getProduct = (req, res, next) => {
             path: '/products',
             product: product
         });
-    }).catch(wrr => {
+    }).catch(err => {
         console.log(err);
     })
 }
@@ -73,13 +73,20 @@ exports.postDeleteCart = (req, res, next) => {
     req.user.deleteCartItem(prodId);
     res.redirect('/cart');
 }
-// exports.getOrders = (req, res, next) => {
-//     res.render('shop/orders.ejs', {
-//         pageTitle: 'Orders',
-//         path: '/orders'
-
-//     }); //static 
-// }
+exports.getOrders = (req, res, next) => {
+    req.user.getOrder()
+        .then(orders => {
+            console.log(orders)
+            res.render('shop/orders.ejs', {
+                pageTitle: 'Orders',
+                path: '/orders',
+                orders: orders
+            });
+        })
+        .catch(err => {
+            console.log(err);
+        })
+}
 exports.postOrders = (req, res, next) => {
     req.user.addOrder()
         .then(orders => {
