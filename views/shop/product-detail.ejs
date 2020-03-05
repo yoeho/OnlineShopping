@@ -21,9 +21,9 @@
                 <h5 class="font-weight-bold indigo-text py-2">$<%= product.price %></h5>
                 <!-- Text -->
                 <p class="card-text" style="text-align: justify;"><%= product.description %></p>
-
+                <a href="/products" class="btn btn-black btn-rounded btn-sm px-3 float-left">Back</a>
                 <form action="/cart" method="POST">
-                    <button type="submit" class="btn btn-primary btn-rounded btn-sm px-3">Add To
+                    <button type="submit" class="btn btn-primary btn-rounded btn-sm px-3 float-right">Add To
                         Cart</button>
                     <input type="hidden" name="productId" value="<%= product._id %>">
                 </form>

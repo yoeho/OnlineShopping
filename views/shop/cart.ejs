@@ -42,18 +42,18 @@
                     <% prods.forEach(product=>{ %>
                     <tr>
                         <th scope="row">
-                            <img style="height: 300px;width: 450px;" src="<%= product.imageUrl %>"
-                                alt="<%= product.title %>" class="img-fluid z-depth-0">
+                            <img style="height: 300px;width: 450px;" src="<%= product.productId.imageUrl %>"
+                                alt="<%= product.productId.title %>" class="img-fluid z-depth-0">
                         </th>
                         <td>
                             <h5 class="mt-3 text-center">
-                                <strong><%= product.title %> </strong>
+                                <strong><%= product.productId.title %> </strong>
                             </h5>
                         </td>
                         <td></td>
                         <td>
                             <h5 class="mt-3 text-warning text-center">
-                                <strong>$<%= product.price %></strong>
+                                <strong>$<%= product.productId.price %></strong>
                             </h5>
                         </td>
                         <td>
@@ -63,12 +63,12 @@
                         </td>
                         <td class="font-weight-bold">
                             <h5 class="mt-3 text-success text-center">
-                                <strong>$<%= (product.price * product.quantity) %></strong>
+                                <strong>$<%= (product.productId.price * product.quantity) %></strong>
                             </h5>
                         </td>
                         <td>
                             <form action="/delete-cart-item" method="POST" class="mt-2">
-                                <input type="hidden" name="productId" value="<%= product._id %>">
+                                <input type="hidden" name="productId" value="<%= product.productId._id %>">
                                 <button type="submit" class="btn btn-sm btn-danger" data-toggle="tooltip"
                                     data-placement="top" title="Remove item">X
                                 </button>

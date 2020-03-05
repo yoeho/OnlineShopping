@@ -10,6 +10,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 // const path = require('path');
 const app = express();
+const mongoose = require('mongoose');
 
 const expressLayouts = require('express-ejs-layouts');
 app.use(expressLayouts);
@@ -22,17 +23,15 @@ const User = require('./models/user');
 const adminRoute = require('./routes/admin');
 const shopRoute = require('./routes/shop');
 
-//import from database
-const mongoConnect = require('./util/database').mongoConnect;
 
 // must be top of the use
 app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
-    User.findById("5e5cbcb31c9d440000cd87e3")
+    User.findById("5e5f531bc61492190882f6f4")
         .then(user => {
-            req.user = new User(user.name, user.email, user.cart, user._id);
+            req.user = user;
             next();
         })
         .catch(err => {
@@ -50,6 +49,21 @@ app.use((req, res, next) => {
             path: ''
         });
 });
-mongoConnect(() => {
-    app.listen(3000);
-});
+mongoose.connect('mongodb+srv://min:min123@cluster1-sukjl.mongodb.net/shop', { useNewUrlParser: true })
+    .then(result => {
+        User.findOne()
+            .then(user => {
+                if (!user) {
+                    const user = new User({
+                        name: 'John',
+                        email: 'john@gmail.com'
+                    })
+                    user.save();
+                }
+            })
+        console.log('Connection DB....');
+        app.listen(3000)
+    })
+    .catch(err => {
+        console.log(err);
+    })
